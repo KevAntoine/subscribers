@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-
+import React, { useEffect, useState } from "react";
+import logo from './assets/img/logo.png'
+import './assets/sass/main.scss'
+import "./App.css";
 
 function App() {
-  const [state, setState] = useState('')
+  const [state, setState] = useState("");
   useEffect(() => {
-    fetch('http://localhost:3000/').then(res => res.json()).then(json => setState(json))
-  }, [])
+    fetch("http://localhost:3000/")
+      .then((res) => res.json())
+      .then((json) => setState(json));
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
