@@ -47,7 +47,24 @@ app.use("/users", usersRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
+app.use((req, res, next) => {
+  const render = res.render;
+  const send = res.send;
+  res.render = function renderWrapper(...args) {
+    Error.captureStackTrace(this);
+    return render.apply(this, args);
+  };
+  res.send = function sendWrapper(...args) {
+    try {
+      send.apply(this, args);
+    } catch (err) {
+      console.error(
+        `Error in res.send | ${err.code} | ${err.message} | ${res.stack}`
+      );
+    }
+  };
+  next();
+});
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
