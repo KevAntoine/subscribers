@@ -57,11 +57,12 @@ function useAppContext(initState: State): {
     initState
   );
   const registerUser = useCallback((data) => {
+    console.log(data);
     let body = {
       name: data.name,
       email: data.email,
     };
-    let response = axios.post("http://locahost:3000/register", body, {
+    let response = axios.post("http://localhost:4040/users/register", body, {
       headers: { "Content-Type": "application/json" },
     });
     response.then((result) => {
@@ -116,7 +117,7 @@ function Home() {
 
   const [state, setState] = useState("");
   useEffect(() => {
-    fetch("http://localhost:3000/")
+    fetch("http://localhost:4040/")
       .then((res) => res.json())
       .then((json) => setState(json));
   }, []);
@@ -136,24 +137,48 @@ function Home() {
 }
 
 type Subscriber = {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
 };
 
 function Register() {
   const userRegister = useAppRegister();
   const { register, handleSubmit } = useForm<Subscriber>();
-  const onSubmit: SubmitHandler<Subscriber> = (data) => userRegister  (data);
+  const onSubmit: SubmitHandler<Subscriber> = (data) => userRegister(data);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("firstName")} />
-      <input {...register("lastName")} />
-      <input type="email" {...register("email")} />
+    <div className="App-header">
+      <div>
+        <img className="App-logo" src={logo} alt="andarise_logo" />
+      </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          maxWidth: "78vw",
+        }}
+      >
+        <div className="form__group">
+          <input className="form__field" {...register("name")} />
+          <label className="form__label">Full Name</label>
+        </div>
+        <div className="form__group">
+          <input type="email" className="form__field" {...register("email")} />
+          <label className="form__label">Email</label>
+        </div>
+        {/* <div className="form__group">
+          <input className="form__field" {...register("lastName")} />
+          <label className="form__label">Whatsapp Number</label>
+        </div> */}
 
-      <input type="submit" />
-    </form>
+        <button className="btc" type="submit">
+          Pre-register
+        </button>
+      </form>
+    </div>
   );
 }
 
