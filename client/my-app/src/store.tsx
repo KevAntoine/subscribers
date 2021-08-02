@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useCallback, useReducer, useContext } from "react";
-import {State, ActionType} from './types'
+import { State, ActionType } from "./types";
 
 type useAppStateType = ReturnType<typeof useAppContext>;
 
@@ -15,15 +15,22 @@ const defaultState: State = {
 const appContext = createContext<useAppStateType>({
   state: defaultState,
   registerUser: () => {},
+  hasBusiness: () => true || false || undefined
 });
 
 export function useAppContext(initState: State): {
   state: State;
   registerUser: (data: State) => void;
+  hasBusiness: (data: {hasBusiness: boolean}) => Boolean;
 } {
   const [state, dispatch] = useReducer(
     (state: State, action: ActionType): State => {
       switch (action.type) {
+        case "WELCOME":
+          return {
+            ...state,
+            hasBusiness: action.hasBusiness,
+          };
         case "REGISTER":
           return {
             ...state,
@@ -39,6 +46,11 @@ export function useAppContext(initState: State): {
     },
     initState
   );
+  const hasBusiness = useCallback((data: {hasBusiness: boolean}): boolean => {
+    let business = !!data.hasBusiness
+    dispatch({ type: "WELCOME", hasBusiness: data.hasBusiness });
+    return business
+  }, []);
   const registerUser = useCallback((data) => {
     console.log(data);
     let body = {
@@ -63,7 +75,7 @@ export function useAppContext(initState: State): {
       }
     });
   }, []);
-  return { state, registerUser };
+  return { state, registerUser, hasBusiness };
 }
 
 export const Provider: React.FunctionComponent<{ initialState: State }> = ({
@@ -80,8 +92,11 @@ export const useAppState = (): State => {
   return state;
 };
 
-
 export const useAppRegister = (): useAppStateType["registerUser"] => {
   const { registerUser } = useContext(appContext);
   return registerUser;
+};
+export const useAppHasBusiness = (): useAppStateType["hasBusiness"] => {
+  const { hasBusiness } = useContext(appContext);
+  return hasBusiness;
 };

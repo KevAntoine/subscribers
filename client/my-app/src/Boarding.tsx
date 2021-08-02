@@ -1,6 +1,16 @@
+/* import { useState } from "react"; */
 import Form from "./Form";
+import { useAppHasBusiness } from "./store";
 
 export default function Boarding({ step }: { step: string }) {
+  /* const [info, setInfo] = useState({hasBusiness: false}) */
+  const hasUserBusiness = useAppHasBusiness();
+
+  const changeHandle = (e: { target: { name: any; value: any } }) => {
+    hasUserBusiness({ hasBusiness: !!e.target.value });
+    console.log(hasUserBusiness);
+  };
+
   let component;
   switch (step) {
     case "welcome":
@@ -14,13 +24,16 @@ export default function Boarding({ step }: { step: string }) {
       component = (
         <div>
           <p className="welcome">Do you have a business?</p>
+          <input type="checkbox" onChange={changeHandle} />
         </div>
       );
       break;
     case "details":
       component = (
         <div>
-          <p className="welcome">Which language do prefer to speak with your Bank?</p>
+          <p className="welcome">
+            Which language do prefer to speak with your Bank?
+          </p>
         </div>
       );
       break;
