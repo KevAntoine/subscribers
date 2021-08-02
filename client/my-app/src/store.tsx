@@ -15,13 +15,13 @@ const defaultState: State = {
 const appContext = createContext<useAppStateType>({
   state: defaultState,
   registerUser: () => {},
-  hasBusiness: () => true || false || undefined
+  hasBusiness: () => true || false || undefined,
 });
 
 export function useAppContext(initState: State): {
   state: State;
   registerUser: (data: State) => void;
-  hasBusiness: (data: {hasBusiness: boolean}) => Boolean;
+  hasBusiness: (data: { hasBusiness: boolean }) => Boolean;
 } {
   const [state, dispatch] = useReducer(
     (state: State, action: ActionType): State => {
@@ -46,10 +46,10 @@ export function useAppContext(initState: State): {
     },
     initState
   );
-  const hasBusiness = useCallback((data: {hasBusiness: boolean}): boolean => {
-    let business = !!data.hasBusiness
+  const hasBusiness = useCallback((data: { hasBusiness: boolean }): boolean => {
+    let business = !!data.hasBusiness;
     dispatch({ type: "WELCOME", hasBusiness: data.hasBusiness });
-    return business
+    return business;
   }, []);
   const registerUser = useCallback((data) => {
     console.log(data);
@@ -57,6 +57,7 @@ export function useAppContext(initState: State): {
       name: data.name,
       email: data.email,
       password: data.password,
+      hasBusiness: data.hasBusiness,
     };
     let response = axios.post("http://localhost:4040/users/register", body, {
       headers: { "Content-Type": "application/json" },

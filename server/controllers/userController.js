@@ -13,6 +13,7 @@ exports.registerUser = async (req, res) => {
     await User.create({
       name: req.body.name,
       email: req.body.email,
+      hasBusiness: req.body.hasBusiness,
       password: hashedPassword,
     });
     return res.status(200).json({ user: user });
