@@ -16,24 +16,43 @@ export default function Boarding({ step }: { step: string }) {
     case "welcome":
       component = (
         <div>
-          <p className="welcome">Want to open an bank account?</p>
+          <p>
+            Want to open an bank account? <br />
+            Do you feel overwhelmed by other <br />
+            banks? Do you feel more comfortable speaking in your natve language?{" "}
+            <br />
+            Then you´ve come to the right place.
+          </p>
         </div>
       );
       break;
     case "info":
       component = (
         <div>
-          <p className="welcome">Do you have a business?</p>
-          <input type="checkbox" onChange={changeHandle} />
+          <p>Do you have a business?</p>
+          <input name="rr" id="check" type="radio" onChange={changeHandle} />
+          <label htmlFor="check">
+            <span></span>yes
+          </label>
         </div>
       );
       break;
     case "details":
       component = (
-        <div>
-          <p className="welcome">
-            Which language do prefer to speak with your Bank?
-          </p>
+        <div className="App-header">
+          <p>Which language do prefer to speak with us?</p>
+          <input type="radio" id="r1" name="rr" />
+          <label htmlFor="r1">
+            <span></span>English
+          </label>
+          <input type="radio" id="r2" name="rr" />
+          <label htmlFor="r2">
+            <span></span>Arabic
+          </label>
+          <input type="radio" id="r3" name="rr" />
+          <label htmlFor="r3">
+            <span></span>French
+          </label>
         </div>
       );
       break;
@@ -45,10 +64,25 @@ export default function Boarding({ step }: { step: string }) {
       );
       break;
     case "goodbye":
-      component = <div>Your ongoing events</div>;
+      component = (
+        <div>
+          <h4>Do you often need to transfer money internationally?</h4>
+          <p>
+            We offer banking models that support international transactions by
+            low fees and easy processes. 
+          </p>
+        </div>
+      );
       break;
     default:
-      component = <div>Your current feed</div>;
+      component = (
+        <div>
+          <p>
+            We are &Arise and offer you a straightforward banking solution from
+            day one.
+          </p>
+        </div>
+      );
   }
   return component;
 }

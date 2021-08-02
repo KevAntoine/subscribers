@@ -20,7 +20,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -40,4 +39,68 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: x-large;
   padding: auto;
+}
+
+P {
+  padding: 3rem;
+}
+
+div#show {
+  width: 230px;
+  height: 200px;
+  padding: 20px;
+  position: absolute;
+  background: #40464b;
+  border-radius: 6px;
+}
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+input[type="checkbox"] + label span {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  background: url(https://d3pr5r64n04s3o.cloudfront.net/tuts/391_checkboxes/check_radio_sheet.png)
+    left top no-repeat;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label span {
+  background: url(https://d3pr5r64n04s3o.cloudfront.net/tuts/391_checkboxes/check_radio_sheet.png) -19px
+    top no-repeat;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+input[type="radio"] + label span {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  background: url(https://d3pr5r64n04s3o.cloudfront.net/tuts/391_checkboxes/check_radio_sheet.png) -38px
+    top no-repeat;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + label span {
+  background: url(https://d3pr5r64n04s3o.cloudfront.net/tuts/391_checkboxes/check_radio_sheet.png) -57px
+    top no-repeat;
 }
