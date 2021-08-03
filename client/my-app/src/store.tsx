@@ -16,12 +16,14 @@ const appContext = createContext<useAppStateType>({
   state: defaultState,
   registerUser: () => {},
   hasBusiness: () => true || false || undefined,
+  languages: () => [],
 });
 
 export function useAppContext(initState: State): {
   state: State;
   registerUser: (data: State) => void;
   hasBusiness: (data: { hasBusiness: boolean }) => Boolean;
+  languages: (data: string[]) => string[];
 } {
   const [state, dispatch] = useReducer(
     (state: State, action: ActionType): State => {
@@ -30,6 +32,11 @@ export function useAppContext(initState: State): {
           return {
             ...state,
             hasBusiness: action.hasBusiness,
+          };
+        case "SETTINGS":
+          return {
+            ...state,
+            languages: action.languages,
           };
         case "REGISTER":
           return {
@@ -50,6 +57,11 @@ export function useAppContext(initState: State): {
     let business = !!data.hasBusiness;
     dispatch({ type: "WELCOME", hasBusiness: data.hasBusiness });
     return business;
+  }, []);
+  const languages = useCallback((data: string[]): string[] => {
+    let languages = data;
+    dispatch({ type: "SETTINGS", languages });
+    return languages;
   }, []);
   const registerUser = useCallback((data) => {
     console.log(data);
@@ -76,7 +88,7 @@ export function useAppContext(initState: State): {
       }
     });
   }, []);
-  return { state, registerUser, hasBusiness };
+  return { state, registerUser, hasBusiness, languages };
 }
 
 export const Provider: React.FunctionComponent<{ initialState: State }> = ({
@@ -100,4 +112,8 @@ export const useAppRegister = (): useAppStateType["registerUser"] => {
 export const useAppHasBusiness = (): useAppStateType["hasBusiness"] => {
   const { hasBusiness } = useContext(appContext);
   return hasBusiness;
+};
+export const useAppLaguages = (): useAppStateType["languages"] => {
+  const { languages } = useContext(appContext);
+  return languages;
 };

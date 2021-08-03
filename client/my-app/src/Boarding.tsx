@@ -1,5 +1,6 @@
 /* import { useState } from "react"; */
 import Form from "./Form";
+import Languages from "./Languages";
 import { useAppHasBusiness } from "./store";
 
 export default function Boarding({ step }: { step: string }) {
@@ -39,8 +40,9 @@ export default function Boarding({ step }: { step: string }) {
       break;
     case "details":
       component = (
-        <div className="App-header">
-          <p>Which language do prefer to speak with us?</p>
+        <div>
+          <Languages />
+          {/* <p>Which language do prefer to speak with us?</p>
           <input type="radio" id="r1" name="rr" />
           <label htmlFor="r1">
             <span></span>English
@@ -52,7 +54,7 @@ export default function Boarding({ step }: { step: string }) {
           <input type="radio" id="r3" name="rr" />
           <label htmlFor="r3">
             <span></span>French
-          </label>
+          </label> */}
         </div>
       );
       break;

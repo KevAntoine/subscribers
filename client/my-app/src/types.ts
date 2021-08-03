@@ -16,7 +16,7 @@ export type ActionType =
     }
   | {
       type: "SETTINGS";
-      languages: string;
+      languages: string[];
     }
   | {
       type: "REGISTER";
