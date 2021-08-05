@@ -23,6 +23,7 @@ function App() {
 }
 function Home() {
   const currentState = useAppState();
+  console.log(currentState);
 
   const [state, setState] = useState("");
   useEffect(() => {
@@ -51,9 +52,9 @@ function Register() {
 
   return (
     <div className="App-header">
-      <div>
+      {/* <div>
         <img className="App-logo" src={logo} alt="andarise_logo" />
-      </div>
+      </div> */}
       <Boarding step={steps[step]}></Boarding>
       <button onClick={() => setStep(step + 1)}>next</button>
     </div>

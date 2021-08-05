@@ -3,11 +3,17 @@ import { useAppRegister, useAppState } from "./store";
 import { State } from "./types";
 
 const Form = () => {
-  const state = useAppState()
+  const state = useAppState();
   const userRegister = useAppRegister();
   const { register, handleSubmit } = useForm<State>();
   const onSubmit: SubmitHandler<State> = (data) =>
-    userRegister({ ...data, password: "welcome", hasBusiness: state.hasBusiness });
+    userRegister({
+      ...data,
+      password: "welcome",
+      hasBusiness: state.hasBusiness,
+      languages: state.languages,
+    });
+
   return (
     <div>
       <form

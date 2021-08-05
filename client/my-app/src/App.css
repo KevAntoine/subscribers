@@ -14,7 +14,7 @@
 } */
 
 .App-header {
-  background-color: #262730;
+  background-color: #d5d6db;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -23,6 +23,9 @@
   color: white;
 }
 
+.App-msg {
+  font: bold normal small-caps normal 24px/1.4 Montserrat;
+}
 .App-link {
   color: #61dafb;
 }

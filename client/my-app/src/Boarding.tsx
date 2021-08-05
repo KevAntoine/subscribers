@@ -1,6 +1,7 @@
 /* import { useState } from "react"; */
 import Form from "./Form";
 import Languages from "./Languages";
+import Message from "./Massage";
 import { useAppHasBusiness } from "./store";
 
 export default function Boarding({ step }: { step: string }) {
@@ -17,13 +18,7 @@ export default function Boarding({ step }: { step: string }) {
     case "welcome":
       component = (
         <div>
-          <p>
-            Want to open an bank account? <br />
-            Do you feel overwhelmed by other <br />
-            banks? Do you feel more comfortable speaking in your natve language?{" "}
-            <br />
-            Then you´ve come to the right place.
-          </p>
+          <Message text="Welcome"></Message>
         </div>
       );
       break;

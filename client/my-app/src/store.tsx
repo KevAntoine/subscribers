@@ -35,7 +35,6 @@ export function useAppContext(initState: State): {
           };
         case "SETTINGS":
           return {
-            ...state,
             languages: action.languages,
           };
         case "REGISTER":
