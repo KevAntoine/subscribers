@@ -1,0 +1,4 @@
+DB_USER=blas
+DB_PASS=9HzjhrnrDjXX0C5z
+DB_HOST=cluster0.hbnsh.mongodb.net
+DB_NAME=myFirstDatabase
