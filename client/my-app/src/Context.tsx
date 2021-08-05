@@ -1,36 +1,26 @@
 import React, { useContext } from "react";
-import PropTypes from "prop-types";
 import { Route, RouteComponentProps } from "react-router";
-import { SessionContext } from "./sessions";
+import { Provider } from "./store";
 
-import Home from "./Home";
-const Context = ({
-  component,
+const AppContext = ({
+  Component,
   path,
   exact,
   isPrivate,
   ...rest
 }: {
-  component: React.FC<RouteComponentProps>;
+  Component: React.FC<RouteComponentProps>;
   path: string;
   exact: boolean;
   isPrivate: boolean;
 }): JSX.Element => {
-  const { session } = useContext(SessionContext);
   return (
     <>
-      {isPrivate && !Boolean(session) ? (
-        <div>
-          <Route path="/" component={Home} />
-          <div>{component}</div>
-        </div>
-      ) : null}
+      <Provider initialState={{ name: "user" }}>
+        <Route path={path} render={(props) => <Component {...props} />}></Route>
+      </Provider>
     </>
   );
 };
 
-Context.propTypes = {
-  component: PropTypes.node,
-};
-
-export default Context;
+export default AppContext;
