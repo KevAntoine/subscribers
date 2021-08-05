@@ -5,10 +5,12 @@ WORKDIR /user/src/client-app
 COPY ./package.json ./
 COPY ./yarn.lock ./
 
-RUN yarn install
+RUN npm install
+
+npm i -D @types/js-cookie
 
 COPY . .
 
 EXPOSE 3000
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]
