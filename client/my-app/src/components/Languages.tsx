@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useAppLaguages } from "./store";
-import "./App.css";
+import { useAppLaguages } from "../store";
 
 export default function App() {
   const userLanguages = useAppLaguages();

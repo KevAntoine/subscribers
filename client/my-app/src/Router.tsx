@@ -1,18 +1,19 @@
-import { createBrowserHistory } from "history";
 import React, { useState } from "react";
-import { Router, Switch } from "react-router";
+import {
+  RouteComponentProps,
+  BrowserRouter as Router,
+  Switch,
+} from "react-router-dom";
 import { getSessionCookie, SessionContext } from "./sessions";
 
 import Routes from "./Routes";
 import AppContext from "./Context";
 
-const history = createBrowserHistory();
-
 const AppRouter = () => {
   const [session, setSession] = useState(getSessionCookie());
   return (
     <SessionContext.Provider value={{ session, setSession }}>
-      <Router history={history}>
+      <Router>
         <Switch>
           {Routes.map((route, index) => (
             <AppContext
@@ -20,7 +21,9 @@ const AppRouter = () => {
               path={route.path}
               isPrivate={route.isPrivate}
               exact
-              Component={route.component as React.FC}
+              Component={
+                route.component as unknown as React.FC<RouteComponentProps<{}>>
+              }
             />
           ))}
         </Switch>

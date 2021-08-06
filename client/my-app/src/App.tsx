@@ -3,6 +3,8 @@ import React, { Suspense, useEffect } from "react";
 import "./assets/sass/main.scss";
 import "./App.css";
 import AppRouter from "./Router";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Provider } from "./store";
 
 function App() {
   useEffect(() => {
@@ -11,7 +13,11 @@ function App() {
   return (
     <>
       <Suspense fallback={<span>loading...</span>}>
-        <AppRouter />
+        <Provider initialState={{ acceptPrivatePolicy: false }}>
+          <ChakraProvider>
+            <AppRouter />
+          </ChakraProvider>
+        </Provider>
       </Suspense>
     </>
   );

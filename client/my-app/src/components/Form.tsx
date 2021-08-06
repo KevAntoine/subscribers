@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useAppRegister, useAppState } from "./store";
-import { State } from "./types";
+import { useAppRegister, useAppState } from "../store";
+import { State } from "../types";
 
 const Form = () => {
   const state = useAppState();

@@ -1,17 +1,28 @@
 /* import { useState } from "react"; */
 import Form from "./Form";
 import Languages from "./Languages";
-import Message from "./Massage";
-import { useAppHasBusiness } from "./store";
+import Message from "../common/Massage";
+import { useAppWelcomeUser, useAppState } from "../store";
+import { State } from "../types";
+import { useState, useEffect } from "react";
 
 export default function Boarding({ step }: { step: string }) {
+  let current = useAppState();
+  const [user, setUser] = useState<State>();
   /* const [info, setInfo] = useState({hasBusiness: false}) */
-  const hasUserBusiness = useAppHasBusiness();
+  const hasUserBusiness = useAppWelcomeUser();
 
   const changeHandle = (e: { target: { name: any; value: any } }) => {
-    hasUserBusiness({ hasBusiness: !!e.target.value });
+    hasUserBusiness({ ...current, hasBusiness: !!e.target.value });
     console.log(hasUserBusiness);
   };
+
+  useEffect(() => {
+    return setUser({
+      email: current.email,
+      acceptPrivatePolicy: current.acceptPrivatePolicy,
+    });
+  }, [current.acceptPrivatePolicy, current.email]);
 
   let component;
   switch (step) {
@@ -19,6 +30,7 @@ export default function Boarding({ step }: { step: string }) {
       component = (
         <div>
           <Message text="Welcome"></Message>
+          <code>{JSON.stringify(user)}</code>
         </div>
       );
       break;

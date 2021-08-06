@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import Boarding from "./Boarding";
+import { History } from "history";
+import Boarding from "../components/Boarding";
+import { useAppState } from "../store";
 
-const Register = () => {
+interface ChildComponentProps {
+  history: History;
+}
+
+const Register: React.SFC<ChildComponentProps> = () => {
+  let current = useAppState();
   const steps = ["welcome", "info", "details", "contact", "goodbye"];
   const [step, setStep] = useState(0);
 
   return (
     <div className="App-header">
+      <code>{JSON.stringify(current)}</code>
       {/* <div>
         <img className="App-logo" src={logo} alt="andarise_logo" />
       </div> */}

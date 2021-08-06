@@ -1,5 +1,5 @@
-import Register from "./Register";
-import { Welcome } from "./Welcome";
+import Register from "./views/Register";
+import { Welcome } from "./views/Welcome";
 const Routes = [
   {
     path: "/",

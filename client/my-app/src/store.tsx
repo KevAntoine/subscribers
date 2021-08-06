@@ -10,19 +10,22 @@ const defaultState: State = {
   password: "1234",
   hasBusiness: false,
   languages: ["es", "en", "arabic"],
+  acceptPrivatePolicy: false,
 };
 
 const appContext = createContext<useAppStateType>({
   state: defaultState,
+  privatePolicyAccepted: () => true || false,
+  welcomeUser: () => {},
   registerUser: () => {},
-  hasBusiness: () => true || false || undefined,
   languages: () => [],
 });
 
 export function useAppContext(initState: State): {
   state: State;
   registerUser: (data: State) => void;
-  hasBusiness: (data: { hasBusiness: boolean }) => Boolean;
+  welcomeUser: (data: State) => void;
+  privatePolicyAccepted: (data: { acceptPrivatePolicy: boolean }) => Boolean;
   languages: (data: string[]) => string[];
 } {
   const [state, dispatch] = useReducer(
@@ -31,10 +34,13 @@ export function useAppContext(initState: State): {
         case "WELCOME":
           return {
             ...state,
+            email: action.email,
+            acceptPrivatePolicy: action.acceptPrivatePolicy,
             hasBusiness: action.hasBusiness,
           };
         case "SETTINGS":
           return {
+            ...state,
             languages: action.languages,
           };
         case "REGISTER":
@@ -52,11 +58,30 @@ export function useAppContext(initState: State): {
     },
     initState
   );
-  const hasBusiness = useCallback((data: { hasBusiness: boolean }): boolean => {
-    let business = !!data.hasBusiness;
-    dispatch({ type: "WELCOME", hasBusiness: data.hasBusiness });
-    return business;
-  }, []);
+  const welcomeUser = useCallback(
+    (data: State): State => {
+      dispatch({
+        type: "WELCOME",
+        email: data.email,
+        acceptPrivatePolicy: data.acceptPrivatePolicy,
+        hasBusiness: !data.hasBusiness,
+      });
+      return state;
+    },
+    [state]
+  );
+  const privatePolicyAccepted = useCallback(
+    (data: { acceptPrivatePolicy: boolean }): boolean => {
+      let accepted = !!data.acceptPrivatePolicy;
+      dispatch({
+        type: "WELCOME",
+        hasBusiness: data.acceptPrivatePolicy,
+        ...state,
+      });
+      return accepted;
+    },
+    [state]
+  );
   const languages = useCallback((data: string[]): string[] => {
     let languages = data;
     dispatch({ type: "SETTINGS", languages });
@@ -87,8 +112,31 @@ export function useAppContext(initState: State): {
       }
     });
   }, []);
-  return { state, registerUser, hasBusiness, languages };
+  return { state, registerUser, welcomeUser, languages, privatePolicyAccepted };
 }
+
+export const useAppState = (): State => {
+  const { state } = useContext(appContext);
+  return state;
+};
+
+export const useAppAccept = (): useAppStateType["privatePolicyAccepted"] => {
+  const { privatePolicyAccepted } = useContext(appContext);
+  return privatePolicyAccepted;
+};
+
+export const useAppRegister = (): useAppStateType["registerUser"] => {
+  const { registerUser } = useContext(appContext);
+  return registerUser;
+};
+export const useAppWelcomeUser = (): useAppStateType["welcomeUser"] => {
+  const { welcomeUser } = useContext(appContext);
+  return welcomeUser;
+};
+export const useAppLaguages = (): useAppStateType["languages"] => {
+  const { languages } = useContext(appContext);
+  return languages;
+};
 
 export const Provider: React.FunctionComponent<{ initialState: State }> = ({
   initialState,
@@ -98,21 +146,3 @@ export const Provider: React.FunctionComponent<{ initialState: State }> = ({
     {children}
   </appContext.Provider>
 );
-
-export const useAppState = (): State => {
-  const { state } = useContext(appContext);
-  return state;
-};
-
-export const useAppRegister = (): useAppStateType["registerUser"] => {
-  const { registerUser } = useContext(appContext);
-  return registerUser;
-};
-export const useAppHasBusiness = (): useAppStateType["hasBusiness"] => {
-  const { hasBusiness } = useContext(appContext);
-  return hasBusiness;
-};
-export const useAppLaguages = (): useAppStateType["languages"] => {
-  const { languages } = useContext(appContext);
-  return languages;
-};
