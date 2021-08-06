@@ -7,7 +7,7 @@ COPY ./yarn.lock ./
 
 RUN npm install
 
-npm i -D @types/js-cookie
+RUN npm i -D @types/js-cookie
 
 COPY . .
 
