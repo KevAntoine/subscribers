@@ -1,0 +1,16 @@
+FROM node:14-slim
+
+WORKDIR /user/src/client-app
+
+COPY ./package.json ./
+COPY ./yarn.lock ./
+
+RUN npm install
+
+RUN npm i -D @types/js-cookie
+
+COPY . .
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
