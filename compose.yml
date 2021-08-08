@@ -1,0 +1,19 @@
+version: "3.9"
+services: 
+
+    api-server:
+        image: api-server
+        
+        build: ./server/
+        ports: 
+            - "4040:4040"
+        
+        stdin_open: true
+    react-app:
+        image: react-client
+        
+        build: ./client/my-app/
+        stdin_open: true
+        ports: 
+            - "3000:3000"
+    
