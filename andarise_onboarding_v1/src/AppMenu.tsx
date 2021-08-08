@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   Drawer,
@@ -7,12 +8,12 @@ import {
   DrawerOverlay,
   Flex,
   Link,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
-import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { InfoIcon } from "@chakra-ui/icons";
+import { ColorModeSwitcher } from "./ColorModeSwitcher";
 
 export default function AppMenu() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,7 +29,18 @@ export default function AppMenu() {
             <Flex justifyContent="flex-start">
               <ColorModeSwitcher p="0.7rem" />
               <Box m="0.7rem">
-                <p>Change Mode</p>
+                <Text fontWeight="semibold">
+                  Toggle Mode{" "}
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "lighter",
+                      color: "gray",
+                    }}
+                  >
+                    drak
+                  </span>
+                </Text>
               </Box>
             </Flex>
             <hr />

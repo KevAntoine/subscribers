@@ -4,16 +4,23 @@ import FrameView from "./FrameView";
 import Onboarding from "./Onboarding";
 
 function Register() {
-  const steps = ["welcome", "info", "details", "contact", "goodbye"];
+  const steps = ["welcome", "info", "details", "contact"];
   const [step, setStep] = useState(0);
   return (
     <FrameView>
       <Container>
-        <Box>
+        <Box onClick={() => setStep(step + 1)}>
           <Onboarding step={steps[step]} />
         </Box>
-        {step === 0 || 3 ? null : (
-          <Button onClick={() => setStep(step + 1)}>Continue</Button>
+        {step >= 3 ? null : (
+          <Button
+            size="lg"
+            colorScheme="green"
+            mt="24px"
+            onClick={() => setStep(step + 1)}
+          >
+            Continue
+          </Button>
         )}
       </Container>
     </FrameView>
