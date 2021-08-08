@@ -5,10 +5,10 @@ WORKDIR /user/src/app
 COPY ./package.json ./
 COPY ./yarn.lock ./
 
-RUN yarn install
+RUN npm install
 
-COPY . .
+COPY . . 
 
 EXPOSE 4040
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]
