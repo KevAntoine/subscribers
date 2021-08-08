@@ -1,20 +1,16 @@
 import { Stack, Checkbox } from "@chakra-ui/react";
-import { useAppAccept } from "../store";
+import {} from "../store";
 
 import React from "react";
 
 const AppCheckbox = ({ hasEmail }: { hasEmail: boolean }) => {
-  const hasUserAccept = useAppAccept();
-
-  const handleClick = (e: { target: { value: any } }) => {
-    hasUserAccept({ acceptPrivatePolicy: !!e.target.value });
-  };
-
   return (
     <>
       <Stack spacing={10} direction="row">
         {hasEmail ? (
-          <Checkbox onChange={handleClick}>Accept</Checkbox>
+          <Checkbox onChange={(e) => console.log(e.target.value)}>
+            Accept
+          </Checkbox>
         ) : (
           <Checkbox isDisabled>Accept</Checkbox>
         )}

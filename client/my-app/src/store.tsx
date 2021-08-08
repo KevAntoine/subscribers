@@ -8,25 +8,25 @@ const defaultState: State = {
   name: "guest",
   email: "mail@server.com",
   password: "1234",
-  hasBusiness: false,
+  hasBusiness: ["start", "wants_to", "wants_acc"],
   languages: ["es", "en", "arabic"],
   acceptPrivatePolicy: false,
 };
 
 const appContext = createContext<useAppStateType>({
   state: defaultState,
-  privatePolicyAccepted: () => true || false,
+  //privatePolicyAccepted: () => true || false,
   welcomeUser: () => {},
   registerUser: () => {},
-  languages: () => [],
+  //languages: () => [],
 });
 
 export function useAppContext(initState: State): {
   state: State;
   registerUser: (data: State) => void;
   welcomeUser: (data: State) => void;
-  privatePolicyAccepted: (data: { acceptPrivatePolicy: boolean }) => Boolean;
-  languages: (data: string[]) => string[];
+  //privatePolicyAccepted: (data: { acceptPrivatePolicy: boolean }) => Boolean;
+  //languages: (data: string[]) => string[];
 } {
   const [state, dispatch] = useReducer(
     (state: State, action: ActionType): State => {
@@ -63,30 +63,19 @@ export function useAppContext(initState: State): {
       dispatch({
         type: "WELCOME",
         email: data.email,
-        acceptPrivatePolicy: data.acceptPrivatePolicy,
-        hasBusiness: !data.hasBusiness,
+        hasBusiness: data.hasBusiness!,
+        acceptPrivatePolicy: data.acceptPrivatePolicy!,
       });
       return state;
     },
     [state]
   );
-  const privatePolicyAccepted = useCallback(
-    (data: { acceptPrivatePolicy: boolean }): boolean => {
-      let accepted = !!data.acceptPrivatePolicy;
-      dispatch({
-        type: "WELCOME",
-        hasBusiness: data.acceptPrivatePolicy,
-        ...state,
-      });
-      return accepted;
-    },
-    [state]
-  );
-  const languages = useCallback((data: string[]): string[] => {
+
+ /*  const languages = useCallback((data: string[]): string[] => {
     let languages = data;
     dispatch({ type: "SETTINGS", languages });
     return languages;
-  }, []);
+  }, []); */
   const registerUser = useCallback((data) => {
     console.log(data);
     let body = {
@@ -112,17 +101,12 @@ export function useAppContext(initState: State): {
       }
     });
   }, []);
-  return { state, registerUser, welcomeUser, languages, privatePolicyAccepted };
+  return { state, registerUser, welcomeUser};
 }
 
 export const useAppState = (): State => {
   const { state } = useContext(appContext);
   return state;
-};
-
-export const useAppAccept = (): useAppStateType["privatePolicyAccepted"] => {
-  const { privatePolicyAccepted } = useContext(appContext);
-  return privatePolicyAccepted;
 };
 
 export const useAppRegister = (): useAppStateType["registerUser"] => {
@@ -133,10 +117,10 @@ export const useAppWelcomeUser = (): useAppStateType["welcomeUser"] => {
   const { welcomeUser } = useContext(appContext);
   return welcomeUser;
 };
-export const useAppLaguages = (): useAppStateType["languages"] => {
+/* export const useAppLaguages = (): useAppStateType["languages"] => {
   const { languages } = useContext(appContext);
   return languages;
-};
+}; */
 
 export const Provider: React.FunctionComponent<{ initialState: State }> = ({
   initialState,

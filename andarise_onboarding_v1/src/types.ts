@@ -2,6 +2,7 @@ export interface State {
   name?: string;
   email?: string;
   confirmEmail?: string;
+  phone?: string;
   password?: string;
   hasBusiness?: string[];
   languages?: string[];

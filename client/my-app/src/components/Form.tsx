@@ -6,13 +6,15 @@ const Form = () => {
   const state = useAppState();
   const userRegister = useAppRegister();
   const { register, handleSubmit } = useForm<State>();
-  const onSubmit: SubmitHandler<State> = (data) =>
+  const onSubmit: SubmitHandler<State> = (data, e) => {
+    e?.target.reset();
     userRegister({
       ...data,
       password: "welcome",
       hasBusiness: state.hasBusiness,
       languages: state.languages,
     });
+  };
 
   return (
     <div>

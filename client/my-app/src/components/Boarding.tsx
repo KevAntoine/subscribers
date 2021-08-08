@@ -13,7 +13,7 @@ export default function Boarding({ step }: { step: string }) {
   const hasUserBusiness = useAppWelcomeUser();
 
   const changeHandle = (e: { target: { name: any; value: any } }) => {
-    hasUserBusiness({ ...current, hasBusiness: !!e.target.value });
+    hasUserBusiness({ ...current, hasBusiness: e.target.value });
     console.log(hasUserBusiness);
   };
 
