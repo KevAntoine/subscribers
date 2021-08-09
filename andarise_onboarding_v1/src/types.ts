@@ -4,7 +4,7 @@ export interface State {
   confirmEmail?: string;
   phone?: string;
   password?: string;
-  hasBusiness?: string[];
+  experiance?: string[];
   languages?: string[];
   accountType?: number;
   acceptPrivatePolicy?: boolean;
@@ -22,7 +22,7 @@ export type ActionType =
       email?: string;
       password?: string;
       accountType?: number;
-      hasBusiness: string[];
+      experiance?: string[];
       acceptPrivatePolicy: boolean;
     }
   | {
@@ -34,6 +34,6 @@ export type ActionType =
       name: string;
       email: string;
       password: string;
-      hasBusiness?: string[];
+      experiance?: string[];
       languages?: string[];
     };

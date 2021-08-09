@@ -5,8 +5,9 @@ import {
   FormHelperText,
   Checkbox,
   Button,
+  Text,
 } from "@chakra-ui/react";
-import { Box } from "@material-ui/core";
+import { Box } from "@chakra-ui/react";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { State } from "./types";
@@ -69,7 +70,9 @@ const Form = () => {
         <FormHelperText>Emails dont match!</FormHelperText>
       )}
       {errors.phone && <FormHelperText>Enter Valid number</FormHelperText>}
-      <Checkbox p="2rem">Accept Privacy Policy</Checkbox>
+      <Checkbox p="2rem">
+        <Text textAlign="left">Yes, I want to be informed about news.</Text>
+      </Checkbox>
 
       <Button type="submit"> Pre-Register</Button>
     </FormControl>
